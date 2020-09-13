@@ -1,3 +1,4 @@
+import 'package:despesas/components/transaction_item.dart';
 import 'package:despesas/models/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -32,50 +33,7 @@ class TransactionList extends StatelessWidget {
             itemCount: transactions.length,
             itemBuilder: (context, index) {
               final tr = transactions[index];
-              return Card(
-                elevation: 5,
-                margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-                child: ListTile(
-                  leading: CircleAvatar(
-                    radius: 30,
-                    child: Padding(
-                      padding: EdgeInsets.all(6),
-                      child: FittedBox(
-                        child: Text(
-                          'R\$${tr.valor.toStringAsFixed(2)}',
-                        ),
-                      ),
-                    ),
-                  ),
-                  title: Text(
-                    tr.title,
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                  subtitle: Text(
-                    DateFormat('d MMM yy').format(tr.date),
-                  ),
-                  trailing: MediaQuery.of(context).size.width > 400
-                      ? FlatButton.icon(
-                          onPressed: () => onRemove(tr.id),
-                          icon: Icon(
-                            Icons.delete,
-                            color: Theme.of(context).errorColor,
-                          ),
-                          label: Text(
-                            'Excluir',
-                            style:
-                                TextStyle(color: Theme.of(context).errorColor),
-                          ),
-                        )
-                      : IconButton(
-                          icon: Icon(
-                            Icons.delete,
-                            color: Theme.of(context).errorColor,
-                          ),
-                          onPressed: () => onRemove(tr.id),
-                        ),
-                ),
-              );
+              return TransactionItem(tr: tr, onRemove: onRemove);
             },
           );
   }
